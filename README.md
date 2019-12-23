@@ -243,7 +243,7 @@ The namenode of the cluster is HA and the id is nameservice1.
 ##### Requst
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/non-secure/wikipedia-hbase-table-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/non-secure/wikipedia-hbase-table-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 #### Snapshot
@@ -486,7 +486,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/non-s
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/non-secure/wikipedia-hbase-snapshot-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/non-secure/wikipedia-hbase-snapshot-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 ### Secure cluster
@@ -722,7 +722,7 @@ The security cluster was tested with HBase version 1.2.0-cdh5.9.0 and again the 
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/secure/wikipedia-hbase-table-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/wikipedia-hbase-table-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 #### Snapshot
@@ -962,7 +962,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/secur
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/secure/wikipedia-hbase-snapshot-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/wikipedia-hbase-snapshot-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 ## 2. Hadoop Indexing
@@ -1201,7 +1201,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/secur
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/non-secure/wikipedia-hadoop-hbase-table-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/non-secure/wikipedia-hadoop-hbase-table-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 #### Snapshot
@@ -1447,7 +1447,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/non-s
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/non-secure/wikipedia-hadoop-hbase-snapshot-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/non-secure/wikipedia-hadoop-hbase-snapshot-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 ### Secure cluster
@@ -1685,7 +1685,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/non-s
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/secure/wikipedia-hadoop-hbase-table-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/wikipedia-hadoop-hbase-table-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 #### Snapshot
@@ -1932,7 +1932,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/secur
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase1/secure/wikipedia-hadoop-hbase-snapshot-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/wikipedia-hadoop-hbase-snapshot-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 # HBase2.x
@@ -2175,7 +2175,7 @@ HBase2.x indexing was tested with Apache HBase version 2.1.4 and the id of the H
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/non-secure/wikipedia-hbase2-table-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase2/non-secure/wikipedia-hbase2-table-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 #### Snapshot
@@ -2417,7 +2417,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/non-s
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/non-secure/wikipedia-hbase2-snapshot-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase2/non-secure/wikipedia-hbase2-snapshot-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 ### Secure cluster
@@ -2653,7 +2653,7 @@ In a secure cluster, HBase2.x indexing was tested identically with Apache HBase2
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/secure/wikipedia-hbase2-table-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase2/secure/wikipedia-hbase2-table-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 #### Snapshot
@@ -2888,7 +2888,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/secur
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/secure/wikipedia-hbase2-snapshot-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase2/secure/wikipedia-hbase2-snapshot-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 ## 2. Hadoop Indexing
@@ -3133,7 +3133,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/secur
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/non-secure/wikipedia-hadoop-hbase2-table-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase2/non-secure/wikipedia-hadoop-hbase2-table-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 #### Snapshot
@@ -3381,7 +3381,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/non-s
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/non-secure/wikipedia-hadoop-hbase2-snapshot-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase2/non-secure/wikipedia-hadoop-hbase2-snapshot-remote-nosecure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 ### Secure cluster
@@ -3614,7 +3614,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/non-s
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/secure/wikipedia-hadoop-hbase2-table-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase2/secure/wikipedia-hadoop-hbase2-table-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
 ```
 
 #### Snapshot
@@ -3858,5 +3858,5 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/secur
 ##### Request
 
 ```
-curl -X 'POST' -H 'Content-Type:application/json' -d @src/resources/hbase2/secure/wikipedia-hadoop-hbase2-snapshot-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
+curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase2/secure/wikipedia-hadoop-hbase2-snapshot-kerberos-remote-secure.json http://localhost:8888/druid/indexer/v1/task
 ```
