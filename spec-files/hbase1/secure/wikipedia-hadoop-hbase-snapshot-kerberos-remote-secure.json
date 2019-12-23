@@ -1,0 +1,234 @@
+{
+  "type" : "index_hadoop_hbase",
+  "spec" : {
+    "dataSchema" : {
+      "dataSource" : "wikipedia-hadoop-hbase-snapshot-kerberos-remote-secure",
+      "parser" : {
+        "type" : "hbase",
+        "parseSpec" : {
+          "format" : "hbase",
+          "dimensionsSpec" : {
+            "dimensions" : [
+              "channel",
+              "cityName",
+              "comment",
+              "countryIsoCode",
+              "countryName",
+              "isAnonymous",
+              "isMinor",
+              "isNew",
+              "isRobot",
+              "isUnpatrolled",
+              "metroCode",
+              "namespace",
+              "page",
+              "regionIsoCode",
+              "regionName",
+              "user"
+            ]
+          },
+          "timestampSpec" : {
+            "format" : "auto",
+            "column" : "time"
+          },
+          "hbaseRowSpec": {
+            "rowKeySpec": {
+              "format": "delimiter",
+              "delimiter": "|",
+              "columns": [
+                {
+                  "type": "string",
+                  "name": "salt"
+                },
+                {
+                  "type": "string",
+                  "name": "time"
+                }
+              ]
+            },
+            "columnSpec": [
+              {
+                "type": "string",
+                "name": "A:channel",
+                "mappingName": "channel"
+              },
+              {
+                "type": "string",
+                "name": "A:cityName",
+                "mappingName": "cityName"
+              },
+              {
+                "type": "string",
+                "name": "A:comment",
+                "mappingName": "comment"
+              },
+              {
+                "type": "string",
+                "name": "A:countryIsoCode",
+                "mappingName": "countryIsoCode"
+              },
+              {
+                "type": "string",
+                "name": "A:countryName",
+                "mappingName": "countryName"
+              },
+              {
+                "type": "boolean",
+                "name": "A:isAnonymous",
+                "mappingName": "isAnonymous"
+              },
+              {
+                "type": "boolean",
+                "name": "A:isMinor",
+                "mappingName": "isMinor"
+              },
+              {
+                "type": "boolean",
+                "name": "A:isNew",
+                "mappingName": "isNew"
+              },
+              {
+                "type": "boolean",
+                "name": "A:isRobot",
+                "mappingName": "isRobot"
+              },
+              {
+                "type": "boolean",
+                "name": "A:isUnpatrolled",
+                "mappingName": "isUnpatrolled"
+              },
+              {
+                "type": "string",
+                "name": "A:namespace",
+                "mappingName": "namespace"
+              },
+              {
+                "type": "string",
+                "name": "A:page",
+                "mappingName": "page"
+              },
+              {
+                "type": "string",
+                "name": "A:regionIsoCode",
+                "mappingName": "regionIsoCode"
+              },
+              {
+                "type": "string",
+                "name": "A:regionName",
+                "mappingName": "regionName"
+              },
+              {
+                "type": "string",
+                "name": "A:user",
+                "mappingName": "user"
+              },
+              {
+                "type": "int",
+                "name": "A:added",
+                "mappingName": "added"
+              },
+              {
+                "type": "int",
+                "name": "A:deleted",
+                "mappingName": "deleted"
+              },
+              {
+                "type": "int",
+                "name": "A:delta",
+                "mappingName": "delta"
+              },
+              {
+                "type": "int",
+                "name": "A:metroCode",
+                "mappingName": "metroCode"
+              }
+            ]
+          }
+        }
+      },
+      "metricsSpec" : [
+        {
+          "type": "count",
+          "name": "count"
+        },
+        {
+          "type": "longSum",
+          "name": "sum_added",
+          "fieldName": "added",
+          "expression": null
+        },
+        {
+          "type": "longSum",
+          "name": "sum_deleted",
+          "fieldName": "deleted",
+          "expression": null
+        },
+        {
+          "type": "longSum",
+          "name": "sum_delta",
+          "fieldName": "delta",
+          "expression": null
+        },
+        {
+          "type": "longSum",
+          "name": "sum_metroCode",
+          "fieldName": "metroCode",
+          "expression": null
+        }
+      ],
+      "granularitySpec" : {
+        "type" : "uniform",
+        "segmentGranularity" : "day",
+        "queryGranularity" : "none",
+        "intervals" : ["2015-09-12/2015-09-13"],
+        "rollup" : true
+      }
+    },
+    "ioConfig" : {
+      "type" : "hadoop",
+      "inputSpec" : {
+        "type" : "hbase",
+        "connectionConfig": {
+          "zookeeperQuorum": "<zookeeper-quorum>",
+          "kerberosConfig": {
+            "principal": "<principal>",
+            "keytab": "<keytab-filepath>"
+          }
+        },
+        "scanInfo": {
+          "type": "snapshot",
+          "name": "wikipedia-snapshot",
+          "startKey": null,
+          "endKey": null,
+          "restoreDir": "hdfs://dev-590-secure/user/juke-mini666"
+        },
+        "hbaseClientConfig": {
+          "hbase.rootdir": "hdfs://dev-590-secure/hbase",
+          "hbase.client.scanner.timeout.period": 60000,
+          "hbase.client.scanner.caching": 100,
+          "hbase.client.scanner.max.result.size": 2097152
+        }
+      }
+    },
+    "tuningConfig" : {
+      "type" : "hadoop",
+      "partitionsSpec" : {
+        "type" : "hashed",
+        "targetPartitionSize" : 5000000
+      },
+      "forceExtendableShardSpecs" : true,
+      "jobProperties" : {
+        "mapreduce.job.classloader" : true,
+        "mapreduce.job.hdfs-servers": "hdfs://dev-590-secure,hdfs://test1",
+        "mapreduce.job.hdfs-servers.token-renewal.exclude": "dev-590-secure",
+        "dfs.nameservices": "test1, dev-590-secure",
+        "dfs.internal.nameservices": "test1",
+        "dfs.ha.namenodes.dev-590-secure": "namenode124,namenode112",
+        "dfs.client.failover.proxy.provider.dev-590-secure": "org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider",
+        "dfs.namenode.rpc-address.dev-590-secure.namenode124": "<nn1>:8020",
+        "dfs.namenode.rpc-address.dev-590-secure.namenode112": "<nn2>:8020"
+      }
+    }
+  },
+  "hadoopDependencyCoordinates": ["org.apache.hadoop:hadoop-client:2.8.5"]
+}

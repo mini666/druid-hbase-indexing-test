@@ -1,0 +1,220 @@
+{
+  "type" : "index_parallel",
+  "spec" : {
+    "dataSchema" : {
+      "dataSource" : "wikipedia-hbase2-table-kerberos-remote-secure",
+      "parser" : {
+        "type" : "hbase2",
+        "parseSpec" : {
+          "format" : "hbase2",
+          "timestampSpec": {
+            "column": "time",
+            "format": "iso"
+          },
+          "dimensionsSpec" : {
+            "dimensions" : [
+              "channel",
+              "cityName",
+              "comment",
+              "countryIsoCode",
+              "countryName",
+              "isAnonymous",
+              "isMinor",
+              "isNew",
+              "isRobot",
+              "isUnpatrolled",
+              "namespace",
+              "page",
+              "regionIsoCode",
+              "regionName",
+              "user"
+            ]
+          },
+          "hbaseRowSpec": {
+            "rowKeySpec": {
+              "format": "delimiter",
+              "delimiter": "|",
+              "columns": [
+                {
+                  "type": "string",
+                  "name": "salt"
+                },
+                {
+                  "type": "string",
+                  "name": "time"
+                }
+              ]
+            },
+            "columnSpec": [
+              {
+                "type": "string",
+                "name": "A:channel",
+                "mappingName": "channel"
+              },
+              {
+                "type": "string",
+                "name": "A:cityName",
+                "mappingName": "cityName"
+              },
+              {
+                "type": "string",
+                "name": "A:comment",
+                "mappingName": "comment"
+              },
+              {
+                "type": "string",
+                "name": "A:countryIsoCode",
+                "mappingName": "countryIsoCode"
+              },
+              {
+                "type": "string",
+                "name": "A:countryName",
+                "mappingName": "countryName"
+              },
+              {
+                "type": "boolean",
+                "name": "A:isAnonymous",
+                "mappingName": "isAnonymous"
+              },
+              {
+                "type": "boolean",
+                "name": "A:isMinor",
+                "mappingName": "isMinor"
+              },
+              {
+                "type": "boolean",
+                "name": "A:isNew",
+                "mappingName": "isNew"
+              },
+              {
+                "type": "boolean",
+                "name": "A:isRobot",
+                "mappingName": "isRobot"
+              },
+              {
+                "type": "boolean",
+                "name": "A:isUnpatrolled",
+                "mappingName": "isUnpatrolled"
+              },
+              {
+                "type": "string",
+                "name": "A:namespace",
+                "mappingName": "namespace"
+              },
+              {
+                "type": "string",
+                "name": "A:page",
+                "mappingName": "page"
+              },
+              {
+                "type": "string",
+                "name": "A:regionIsoCode",
+                "mappingName": "regionIsoCode"
+              },
+              {
+                "type": "string",
+                "name": "A:regionName",
+                "mappingName": "regionName"
+              },
+              {
+                "type": "string",
+                "name": "A:user",
+                "mappingName": "user"
+              },
+              {
+                "type": "int",
+                "name": "A:added",
+                "mappingName": "added"
+              },
+              {
+                "type": "int",
+                "name": "A:deleted",
+                "mappingName": "deleted"
+              },
+              {
+                "type": "int",
+                "name": "A:delta",
+                "mappingName": "delta"
+              },
+              {
+                "type": "int",
+                "name": "A:metroCode",
+                "mappingName": "metroCode"
+              }
+            ]
+          }
+        }
+      },
+      "metricsSpec" : [
+        {
+          "type": "count",
+          "name": "count"
+        },
+        {
+          "type": "longSum",
+          "name": "sum_added",
+          "fieldName": "added",
+          "expression": null
+        },
+        {
+          "type": "longSum",
+          "name": "sum_deleted",
+          "fieldName": "deleted",
+          "expression": null
+        },
+        {
+          "type": "longSum",
+          "name": "sum_delta",
+          "fieldName": "delta",
+          "expression": null
+        },
+        {
+          "type": "longSum",
+          "name": "sum_metroCode",
+          "fieldName": "metroCode",
+          "expression": null
+        }
+      ],
+      "granularitySpec" : {
+        "type" : "uniform",
+        "segmentGranularity" : "day",
+        "queryGranularity" : "hour",
+        "intervals" : ["2015-09-12/2015-09-13"],
+        "rollup" : true
+      }
+    },
+    "ioConfig" : {
+      "type" : "index_parallel",
+      "firehose" : {
+        "type": "hbase2",
+        "connectionConfig": {
+          "zookeeperQuorum": "hbase-ambari-test7.dakao.io",
+          "kerberosConfig": {
+            "principal": "<principal>",
+            "keytab": "<keytab-filepath>" 
+          }
+        },
+        "scanInfo": {
+          "type": "table",
+          "name": "default:wikipedia",
+          "startKey": null,
+          "endKey": null
+        },
+        "splitByRegion": true,
+        "taskCount": 10,
+        "hbaseClientConfig": {
+          "hbase.client.scanner.timeout.period": 60000,
+          "hbase.client.scanner.caching": 100,
+          "hbase.client.scanner.max.result.size": 2097152
+        }
+      },
+      "appendToExisting" : false
+    },
+    "tuningConfig" : {
+      "type" : "index_parallel",
+      "maxRowsPerSegment" : 5000000,
+      "maxRowsInMemory" : 25000,
+      "maxNumSubTasks": 20
+    }
+  }
+}
