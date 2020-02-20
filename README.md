@@ -21,147 +21,28 @@ The namenode of the cluster is HA and the id is nameservice1.
   "spec" : {
     "dataSchema" : {
       "dataSource" : "wikipedia-hbase-table-remote-nosecure",
-      "parser" : {
-        "type" : "hbase",
-        "parseSpec" : {
-          "format" : "hbase",
-          "timestampSpec": {
-            "column": "time",
-            "format": "iso"
-          },
-          "dimensionsSpec" : {
-            "dimensions" : [
-              "channel",
-              "cityName",
-              "comment",
-              "countryIsoCode",
-              "countryName",
-              "isAnonymous",
-              "isMinor",
-              "isNew",
-              "isRobot",
-              "isUnpatrolled",
-              "namespace",
-              "page",
-              "regionIsoCode",
-              "regionName",
-              "user"
-            ]
-          },
-          "hbaseRowSpec": {
-            "rowKeySpec": {
-              "format": "delimiter",
-              "delimiter": "|",
-              "columns": [
-                {
-                  "type": "string",
-                  "name": "salt"
-                },
-                {
-                  "type": "string",
-                  "name": "time"
-                }
-              ]
-            },
-            "columnSpec": [
-              {
-                "type": "string",
-                "name": "A:channel",
-                "mappingName": "channel"
-              },
-              {
-                "type": "string",
-                "name": "A:cityName",
-                "mappingName": "cityName"
-              },
-              {
-                "type": "string",
-                "name": "A:comment",
-                "mappingName": "comment"
-              },
-              {
-                "type": "string",
-                "name": "A:countryIsoCode",
-                "mappingName": "countryIsoCode"
-              },
-              {
-                "type": "string",
-                "name": "A:countryName",
-                "mappingName": "countryName"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isAnonymous",
-                "mappingName": "isAnonymous"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isMinor",
-                "mappingName": "isMinor"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isNew",
-                "mappingName": "isNew"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isRobot",
-                "mappingName": "isRobot"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isUnpatrolled",
-                "mappingName": "isUnpatrolled"
-              },
-              {
-                "type": "string",
-                "name": "A:namespace",
-                "mappingName": "namespace"
-              },
-              {
-                "type": "string",
-                "name": "A:page",
-                "mappingName": "page"
-              },
-              {
-                "type": "string",
-                "name": "A:regionIsoCode",
-                "mappingName": "regionIsoCode"
-              },
-              {
-                "type": "string",
-                "name": "A:regionName",
-                "mappingName": "regionName"
-              },
-              {
-                "type": "string",
-                "name": "A:user",
-                "mappingName": "user"
-              },
-              {
-                "type": "int",
-                "name": "A:added",
-                "mappingName": "added"
-              },
-              {
-                "type": "int",
-                "name": "A:deleted",
-                "mappingName": "deleted"
-              },
-              {
-                "type": "int",
-                "name": "A:delta",
-                "mappingName": "delta"
-              },
-              {
-                "type": "int",
-                "name": "A:metroCode",
-                "mappingName": "metroCode"
-              }
-            ]
-          }
-        }
+      "timestampSpec": {
+        "column": "time",
+        "format": "iso"
+      },
+      "dimensionsSpec" : {
+        "dimensions" : [
+          "channel",
+          "cityName",
+          "comment",
+          "countryIsoCode",
+          "countryName",
+          "isAnonymous",
+          "isMinor",
+          "isNew",
+          "isRobot",
+          "isUnpatrolled",
+          "namespace",
+          "page",
+          "regionIsoCode",
+          "regionName",
+          "user"
+        ]
       },
       "metricsSpec" : [
         {
@@ -203,7 +84,7 @@ The namenode of the cluster is HA and the id is nameservice1.
     },
     "ioConfig" : {
       "type" : "index_parallel",
-      "firehose" : {
+      "inputSource" : {
         "type": "hbase",
         "connectionConfig": {
           "zookeeperQuorum": "<zookeeper-quorum>",
@@ -227,7 +108,122 @@ The namenode of the cluster is HA and the id is nameservice1.
           "hbase.client.scanner.max.result.size": 2097152
         }
       },
-      "appendToExisting" : false
+      "inputFormat": {
+        "type": "hbase",
+        "hbaseRowSpec": {
+          "rowKeySpec": {
+            "format": "delimiter",
+            "delimiter": "|",
+            "columns": [
+              {
+                "type": "string",
+                "name": "salt"
+              },
+              {
+                "type": "string",
+                "name": "time"
+              }
+            ]
+          },
+          "columnSpec": [
+            {
+              "type": "string",
+              "name": "A:channel",
+              "mappingName": "channel"
+            },
+            {
+              "type": "string",
+              "name": "A:cityName",
+              "mappingName": "cityName"
+            },
+            {
+              "type": "string",
+              "name": "A:comment",
+              "mappingName": "comment"
+            },
+            {
+              "type": "string",
+              "name": "A:countryIsoCode",
+              "mappingName": "countryIsoCode"
+            },
+            {
+              "type": "string",
+              "name": "A:countryName",
+              "mappingName": "countryName"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isAnonymous",
+              "mappingName": "isAnonymous"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isMinor",
+              "mappingName": "isMinor"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isNew",
+              "mappingName": "isNew"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isRobot",
+              "mappingName": "isRobot"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isUnpatrolled",
+              "mappingName": "isUnpatrolled"
+            },
+            {
+              "type": "string",
+              "name": "A:namespace",
+              "mappingName": "namespace"
+            },
+            {
+              "type": "string",
+              "name": "A:page",
+              "mappingName": "page"
+            },
+            {
+              "type": "string",
+              "name": "A:regionIsoCode",
+              "mappingName": "regionIsoCode"
+            },
+            {
+              "type": "string",
+              "name": "A:regionName",
+              "mappingName": "regionName"
+            },
+            {
+              "type": "string",
+              "name": "A:user",
+              "mappingName": "user"
+            },
+            {
+              "type": "int",
+              "name": "A:added",
+              "mappingName": "added"
+            },
+            {
+              "type": "int",
+              "name": "A:deleted",
+              "mappingName": "deleted"
+            },
+            {
+              "type": "int",
+              "name": "A:delta",
+              "mappingName": "delta"
+            },
+            {
+              "type": "int",
+              "name": "A:metroCode",
+              "mappingName": "metroCode"
+            }
+          ]
+        }
+      }
     },
     "tuningConfig" : {
       "type" : "index_parallel",
@@ -256,147 +252,28 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/non-secu
   "spec" : {
     "dataSchema" : {
       "dataSource" : "wikipedia-hbase-snapshot-remote-nosecure",
-      "parser" : {
-        "type" : "hbase",
-        "parseSpec" : {
-          "format" : "hbase",
-          "timestampSpec": {
-            "column": "time",
-            "format": "iso"
-          },
-          "dimensionsSpec" : {
-            "dimensions" : [
-              "channel",
-              "cityName",
-              "comment",
-              "countryIsoCode",
-              "countryName",
-              "isAnonymous",
-              "isMinor",
-              "isNew",
-              "isRobot",
-              "isUnpatrolled",
-              "namespace",
-              "page",
-              "regionIsoCode",
-              "regionName",
-              "user"
-            ]
-          },
-          "hbaseRowSpec": {
-            "rowKeySpec": {
-              "format": "delimiter",
-              "delimiter": "|",
-              "columns": [
-                {
-                  "type": "string",
-                  "name": "salt"
-                },
-                {
-                  "type": "string",
-                  "name": "time"
-                }
-              ]
-            },
-            "columnSpec": [
-              {
-                "type": "string",
-                "name": "A:channel",
-                "mappingName": "channel"
-              },
-              {
-                "type": "string",
-                "name": "A:cityName",
-                "mappingName": "cityName"
-              },
-              {
-                "type": "string",
-                "name": "A:comment",
-                "mappingName": "comment"
-              },
-              {
-                "type": "string",
-                "name": "A:countryIsoCode",
-                "mappingName": "countryIsoCode"
-              },
-              {
-                "type": "string",
-                "name": "A:countryName",
-                "mappingName": "countryName"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isAnonymous",
-                "mappingName": "isAnonymous"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isMinor",
-                "mappingName": "isMinor"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isNew",
-                "mappingName": "isNew"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isRobot",
-                "mappingName": "isRobot"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isUnpatrolled",
-                "mappingName": "isUnpatrolled"
-              },
-              {
-                "type": "string",
-                "name": "A:namespace",
-                "mappingName": "namespace"
-              },
-              {
-                "type": "string",
-                "name": "A:page",
-                "mappingName": "page"
-              },
-              {
-                "type": "string",
-                "name": "A:regionIsoCode",
-                "mappingName": "regionIsoCode"
-              },
-              {
-                "type": "string",
-                "name": "A:regionName",
-                "mappingName": "regionName"
-              },
-              {
-                "type": "string",
-                "name": "A:user",
-                "mappingName": "user"
-              },
-              {
-                "type": "int",
-                "name": "A:added",
-                "mappingName": "added"
-              },
-              {
-                "type": "int",
-                "name": "A:deleted",
-                "mappingName": "deleted"
-              },
-              {
-                "type": "int",
-                "name": "A:delta",
-                "mappingName": "delta"
-              },
-              {
-                "type": "int",
-                "name": "A:metroCode",
-                "mappingName": "metroCode"
-              }
-            ]
-          }
-        }
+      "timestampSpec": {
+        "column": "time",
+        "format": "iso"
+      },
+      "dimensionsSpec" : {
+        "dimensions" : [
+          "channel",
+          "cityName",
+          "comment",
+          "countryIsoCode",
+          "countryName",
+          "isAnonymous",
+          "isMinor",
+          "isNew",
+          "isRobot",
+          "isUnpatrolled",
+          "namespace",
+          "page",
+          "regionIsoCode",
+          "regionName",
+          "user"
+        ]
       },
       "metricsSpec" : [
         {
@@ -438,7 +315,7 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/non-secu
     },
     "ioConfig" : {
       "type" : "index_parallel",
-      "firehose" : {
+      "inputSource" : {
         "type": "hbase",
         "connectionConfig": {
           "kerberosConfig": {
@@ -471,7 +348,122 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/non-secu
           "hbase.client.scanner.max.result.size": 2097152
         }
       },
-      "appendToExisting" : false
+      "inputFormat": {
+        "type": "hbase",
+        "hbaseRowSpec": {
+          "rowKeySpec": {
+            "format": "delimiter",
+            "delimiter": "|",
+            "columns": [
+              {
+                "type": "string",
+                "name": "salt"
+              },
+              {
+                "type": "string",
+                "name": "time"
+              }
+            ]
+          },
+          "columnSpec": [
+            {
+              "type": "string",
+              "name": "A:channel",
+              "mappingName": "channel"
+            },
+            {
+              "type": "string",
+              "name": "A:cityName",
+              "mappingName": "cityName"
+            },
+            {
+              "type": "string",
+              "name": "A:comment",
+              "mappingName": "comment"
+            },
+            {
+              "type": "string",
+              "name": "A:countryIsoCode",
+              "mappingName": "countryIsoCode"
+            },
+            {
+              "type": "string",
+              "name": "A:countryName",
+              "mappingName": "countryName"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isAnonymous",
+              "mappingName": "isAnonymous"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isMinor",
+              "mappingName": "isMinor"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isNew",
+              "mappingName": "isNew"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isRobot",
+              "mappingName": "isRobot"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isUnpatrolled",
+              "mappingName": "isUnpatrolled"
+            },
+            {
+              "type": "string",
+              "name": "A:namespace",
+              "mappingName": "namespace"
+            },
+            {
+              "type": "string",
+              "name": "A:page",
+              "mappingName": "page"
+            },
+            {
+              "type": "string",
+              "name": "A:regionIsoCode",
+              "mappingName": "regionIsoCode"
+            },
+            {
+              "type": "string",
+              "name": "A:regionName",
+              "mappingName": "regionName"
+            },
+            {
+              "type": "string",
+              "name": "A:user",
+              "mappingName": "user"
+            },
+            {
+              "type": "int",
+              "name": "A:added",
+              "mappingName": "added"
+            },
+            {
+              "type": "int",
+              "name": "A:deleted",
+              "mappingName": "deleted"
+            },
+            {
+              "type": "int",
+              "name": "A:delta",
+              "mappingName": "delta"
+            },
+            {
+              "type": "int",
+              "name": "A:metroCode",
+              "mappingName": "metroCode"
+            }
+          ]
+        }
+      }
     },
     "tuningConfig" : {
       "type" : "index_parallel",
@@ -502,147 +494,28 @@ The security cluster was tested with HBase version 1.2.0-cdh5.9.0 and again the 
   "spec" : {
     "dataSchema" : {
       "dataSource" : "wikipedia-hbase-table-kerberos-remote-secure",
-      "parser" : {
-        "type" : "hbase",
-        "parseSpec" : {
-          "format" : "hbase",
-          "timestampSpec": {
-            "column": "time",
-            "format": "iso"
-          },
-          "dimensionsSpec" : {
-            "dimensions" : [
-              "channel",
-              "cityName",
-              "comment",
-              "countryIsoCode",
-              "countryName",
-              "isAnonymous",
-              "isMinor",
-              "isNew",
-              "isRobot",
-              "isUnpatrolled",
-              "namespace",
-              "page",
-              "regionIsoCode",
-              "regionName",
-              "user"
-            ]
-          },
-          "hbaseRowSpec": {
-            "rowKeySpec": {
-              "format": "delimiter",
-              "delimiter": "|",
-              "columns": [
-                {
-                  "type": "string",
-                  "name": "salt"
-                },
-                {
-                  "type": "string",
-                  "name": "time"
-                }
-              ]
-            },
-            "columnSpec": [
-              {
-                "type": "string",
-                "name": "A:channel",
-                "mappingName": "channel"
-              },
-              {
-                "type": "string",
-                "name": "A:cityName",
-                "mappingName": "cityName"
-              },
-              {
-                "type": "string",
-                "name": "A:comment",
-                "mappingName": "comment"
-              },
-              {
-                "type": "string",
-                "name": "A:countryIsoCode",
-                "mappingName": "countryIsoCode"
-              },
-              {
-                "type": "string",
-                "name": "A:countryName",
-                "mappingName": "countryName"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isAnonymous",
-                "mappingName": "isAnonymous"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isMinor",
-                "mappingName": "isMinor"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isNew",
-                "mappingName": "isNew"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isRobot",
-                "mappingName": "isRobot"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isUnpatrolled",
-                "mappingName": "isUnpatrolled"
-              },
-              {
-                "type": "string",
-                "name": "A:namespace",
-                "mappingName": "namespace"
-              },
-              {
-                "type": "string",
-                "name": "A:page",
-                "mappingName": "page"
-              },
-              {
-                "type": "string",
-                "name": "A:regionIsoCode",
-                "mappingName": "regionIsoCode"
-              },
-              {
-                "type": "string",
-                "name": "A:regionName",
-                "mappingName": "regionName"
-              },
-              {
-                "type": "string",
-                "name": "A:user",
-                "mappingName": "user"
-              },
-              {
-                "type": "int",
-                "name": "A:added",
-                "mappingName": "added"
-              },
-              {
-                "type": "int",
-                "name": "A:deleted",
-                "mappingName": "deleted"
-              },
-              {
-                "type": "int",
-                "name": "A:delta",
-                "mappingName": "delta"
-              },
-              {
-                "type": "int",
-                "name": "A:metroCode",
-                "mappingName": "metroCode"
-              }
-            ]
-          }
-        }
+      "timestampSpec": {
+        "column": "time",
+        "format": "iso"
+      },
+      "dimensionsSpec" : {
+        "dimensions" : [
+          "channel",
+          "cityName",
+          "comment",
+          "countryIsoCode",
+          "countryName",
+          "isAnonymous",
+          "isMinor",
+          "isNew",
+          "isRobot",
+          "isUnpatrolled",
+          "namespace",
+          "page",
+          "regionIsoCode",
+          "regionName",
+          "user"
+        ]
       },
       "metricsSpec" : [
         {
@@ -684,13 +557,13 @@ The security cluster was tested with HBase version 1.2.0-cdh5.9.0 and again the 
     },
     "ioConfig" : {
       "type" : "index_parallel",
-      "firehose" : {
+      "inputSource" : {
         "type": "hbase",
         "connectionConfig": {
           "zookeeperQuorum": "<zookeeper-quorum>",
           "kerberosConfig": {
             "principal": "<principal>",
-            "keytab": "<keytab-filepath>"
+            "keytab": "<keytab-filepath>" 
           }
         },
         "scanInfo": {
@@ -707,7 +580,122 @@ The security cluster was tested with HBase version 1.2.0-cdh5.9.0 and again the 
           "hbase.client.scanner.max.result.size": 2097152
         }
       },
-      "appendToExisting" : false
+      "inputFormat": {
+        "type": "hbase",
+        "hbaseRowSpec": {
+          "rowKeySpec": {
+            "format": "delimiter",
+            "delimiter": "|",
+            "columns": [
+              {
+                "type": "string",
+                "name": "salt"
+              },
+              {
+                "type": "string",
+                "name": "time"
+              }
+            ]
+          },
+          "columnSpec": [
+            {
+              "type": "string",
+              "name": "A:channel",
+              "mappingName": "channel"
+            },
+            {
+              "type": "string",
+              "name": "A:cityName",
+              "mappingName": "cityName"
+            },
+            {
+              "type": "string",
+              "name": "A:comment",
+              "mappingName": "comment"
+            },
+            {
+              "type": "string",
+              "name": "A:countryIsoCode",
+              "mappingName": "countryIsoCode"
+            },
+            {
+              "type": "string",
+              "name": "A:countryName",
+              "mappingName": "countryName"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isAnonymous",
+              "mappingName": "isAnonymous"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isMinor",
+              "mappingName": "isMinor"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isNew",
+              "mappingName": "isNew"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isRobot",
+              "mappingName": "isRobot"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isUnpatrolled",
+              "mappingName": "isUnpatrolled"
+            },
+            {
+              "type": "string",
+              "name": "A:namespace",
+              "mappingName": "namespace"
+            },
+            {
+              "type": "string",
+              "name": "A:page",
+              "mappingName": "page"
+            },
+            {
+              "type": "string",
+              "name": "A:regionIsoCode",
+              "mappingName": "regionIsoCode"
+            },
+            {
+              "type": "string",
+              "name": "A:regionName",
+              "mappingName": "regionName"
+            },
+            {
+              "type": "string",
+              "name": "A:user",
+              "mappingName": "user"
+            },
+            {
+              "type": "int",
+              "name": "A:added",
+              "mappingName": "added"
+            },
+            {
+              "type": "int",
+              "name": "A:deleted",
+              "mappingName": "deleted"
+            },
+            {
+              "type": "int",
+              "name": "A:delta",
+              "mappingName": "delta"
+            },
+            {
+              "type": "int",
+              "name": "A:metroCode",
+              "mappingName": "metroCode"
+            }
+          ]
+        }
+      }
     },
     "tuningConfig" : {
       "type" : "index_parallel",
@@ -735,147 +723,28 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/w
   "spec" : {
     "dataSchema" : {
       "dataSource" : "wikipedia-hbase-snapshot-kerberos-remote-secure",
-      "parser" : {
-        "type" : "hbase",
-        "parseSpec" : {
-          "format" : "hbase",
-          "timestampSpec": {
-            "column": "time",
-            "format": "iso"
-          },
-          "dimensionsSpec" : {
-            "dimensions" : [
-              "channel",
-              "cityName",
-              "comment",
-              "countryIsoCode",
-              "countryName",
-              "isAnonymous",
-              "isMinor",
-              "isNew",
-              "isRobot",
-              "isUnpatrolled",
-              "namespace",
-              "page",
-              "regionIsoCode",
-              "regionName",
-              "user"
-            ]
-          },
-          "hbaseRowSpec": {
-            "rowKeySpec": {
-              "format": "delimiter",
-              "delimiter": "|",
-              "columns": [
-                {
-                  "type": "string",
-                  "name": "salt"
-                },
-                {
-                  "type": "string",
-                  "name": "time"
-                }
-              ]
-            },
-            "columnSpec": [
-              {
-                "type": "string",
-                "name": "A:channel",
-                "mappingName": "channel"
-              },
-              {
-                "type": "string",
-                "name": "A:cityName",
-                "mappingName": "cityName"
-              },
-              {
-                "type": "string",
-                "name": "A:comment",
-                "mappingName": "comment"
-              },
-              {
-                "type": "string",
-                "name": "A:countryIsoCode",
-                "mappingName": "countryIsoCode"
-              },
-              {
-                "type": "string",
-                "name": "A:countryName",
-                "mappingName": "countryName"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isAnonymous",
-                "mappingName": "isAnonymous"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isMinor",
-                "mappingName": "isMinor"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isNew",
-                "mappingName": "isNew"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isRobot",
-                "mappingName": "isRobot"
-              },
-              {
-                "type": "boolean",
-                "name": "A:isUnpatrolled",
-                "mappingName": "isUnpatrolled"
-              },
-              {
-                "type": "string",
-                "name": "A:namespace",
-                "mappingName": "namespace"
-              },
-              {
-                "type": "string",
-                "name": "A:page",
-                "mappingName": "page"
-              },
-              {
-                "type": "string",
-                "name": "A:regionIsoCode",
-                "mappingName": "regionIsoCode"
-              },
-              {
-                "type": "string",
-                "name": "A:regionName",
-                "mappingName": "regionName"
-              },
-              {
-                "type": "string",
-                "name": "A:user",
-                "mappingName": "user"
-              },
-              {
-                "type": "int",
-                "name": "A:added",
-                "mappingName": "added"
-              },
-              {
-                "type": "int",
-                "name": "A:deleted",
-                "mappingName": "deleted"
-              },
-              {
-                "type": "int",
-                "name": "A:delta",
-                "mappingName": "delta"
-              },
-              {
-                "type": "int",
-                "name": "A:metroCode",
-                "mappingName": "metroCode"
-              }
-            ]
-          }
-        }
+      "timestampSpec": {
+        "column": "time",
+        "format": "iso"
+      },
+      "dimensionsSpec" : {
+        "dimensions" : [
+          "channel",
+          "cityName",
+          "comment",
+          "countryIsoCode",
+          "countryName",
+          "isAnonymous",
+          "isMinor",
+          "isNew",
+          "isRobot",
+          "isUnpatrolled",
+          "namespace",
+          "page",
+          "regionIsoCode",
+          "regionName",
+          "user"
+        ]
       },
       "metricsSpec" : [
         {
@@ -917,12 +786,12 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/w
     },
     "ioConfig" : {
       "type" : "index_parallel",
-      "firehose" : {
+      "inputSource" : {
         "type": "hbase",
         "connectionConfig": {
           "kerberosConfig": {
             "principal": "<principal>",
-            "keytab": "<keytab-filepath>"
+            "keytab": "<keytab-filepath>" 
           }
         },
         "scanInfo": {
@@ -947,7 +816,122 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/w
           "hbase.client.scanner.max.result.size": 2097152
         }
       },
-      "appendToExisting" : false
+      "inputFormat": {
+        "type": "hbase",
+        "hbaseRowSpec": {
+          "rowKeySpec": {
+            "format": "delimiter",
+            "delimiter": "|",
+            "columns": [
+              {
+                "type": "string",
+                "name": "salt"
+              },
+              {
+                "type": "string",
+                "name": "time"
+              }
+            ]
+          },
+          "columnSpec": [
+            {
+              "type": "string",
+              "name": "A:channel",
+              "mappingName": "channel"
+            },
+            {
+              "type": "string",
+              "name": "A:cityName",
+              "mappingName": "cityName"
+            },
+            {
+              "type": "string",
+              "name": "A:comment",
+              "mappingName": "comment"
+            },
+            {
+              "type": "string",
+              "name": "A:countryIsoCode",
+              "mappingName": "countryIsoCode"
+            },
+            {
+              "type": "string",
+              "name": "A:countryName",
+              "mappingName": "countryName"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isAnonymous",
+              "mappingName": "isAnonymous"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isMinor",
+              "mappingName": "isMinor"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isNew",
+              "mappingName": "isNew"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isRobot",
+              "mappingName": "isRobot"
+            },
+            {
+              "type": "boolean",
+              "name": "A:isUnpatrolled",
+              "mappingName": "isUnpatrolled"
+            },
+            {
+              "type": "string",
+              "name": "A:namespace",
+              "mappingName": "namespace"
+            },
+            {
+              "type": "string",
+              "name": "A:page",
+              "mappingName": "page"
+            },
+            {
+              "type": "string",
+              "name": "A:regionIsoCode",
+              "mappingName": "regionIsoCode"
+            },
+            {
+              "type": "string",
+              "name": "A:regionName",
+              "mappingName": "regionName"
+            },
+            {
+              "type": "string",
+              "name": "A:user",
+              "mappingName": "user"
+            },
+            {
+              "type": "int",
+              "name": "A:added",
+              "mappingName": "added"
+            },
+            {
+              "type": "int",
+              "name": "A:deleted",
+              "mappingName": "deleted"
+            },
+            {
+              "type": "int",
+              "name": "A:delta",
+              "mappingName": "delta"
+            },
+            {
+              "type": "int",
+              "name": "A:metroCode",
+              "mappingName": "metroCode"
+            }
+          ]
+        }
+      }
     },
     "tuningConfig" : {
       "type" : "index_parallel",
@@ -975,18 +959,14 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/w
 
 ```
 {
-  "type" : "index_parallel",
+  "type" : "index_hadoop_hbase",
   "spec" : {
     "dataSchema" : {
-      "dataSource" : "wikipedia-hbase-table-remote-nosecure",
+      "dataSource" : "wikipedia-hadoop-hbase-table-remote-nosecure",
       "parser" : {
         "type" : "hbase",
         "parseSpec" : {
           "format" : "hbase",
-          "timestampSpec": {
-            "column": "time",
-            "format": "iso"
-          },
           "dimensionsSpec" : {
             "dimensions" : [
               "channel",
@@ -999,12 +979,17 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/w
               "isNew",
               "isRobot",
               "isUnpatrolled",
+              "metroCode",
               "namespace",
               "page",
               "regionIsoCode",
               "regionName",
               "user"
             ]
+          },
+          "timestampSpec" : {
+            "format" : "auto",
+            "column" : "time"
           },
           "hbaseRowSpec": {
             "rowKeySpec": {
@@ -1154,15 +1139,15 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/w
       "granularitySpec" : {
         "type" : "uniform",
         "segmentGranularity" : "day",
-        "queryGranularity" : "hour",
+        "queryGranularity" : "none",
         "intervals" : ["2015-09-12/2015-09-13"],
         "rollup" : true
       }
     },
     "ioConfig" : {
-      "type" : "index_parallel",
-      "firehose" : {
-        "type": "hbase",
+      "type" : "hadoop",
+      "inputSpec" : {
+        "type" : "hbase",
         "connectionConfig": {
           "zookeeperQuorum": "<zookeeper-quorum>",
           "kerberosConfig": {
@@ -1177,24 +1162,27 @@ curl -X 'POST' -H 'Content-Type:application/json' -d @spec-files/hbase1/secure/w
           "startKey": null,
           "endKey": null
         },
-        "splitByRegion": true,
-        "taskCount": 10,
         "hbaseClientConfig": {
-          "hbase.client.scanner.timeout.period": 600000,
+          "hbase.rootdir": "/hbase",
+          "hbase.client.scanner.timeout.period": 60000,
           "hbase.client.scanner.caching": 100,
           "hbase.client.scanner.max.result.size": 2097152
         }
-      },
-      "appendToExisting" : false
+      }
     },
     "tuningConfig" : {
-      "type" : "index_parallel",
-      "maxRowsPerSegment" : 5000000,
-      "maxRowsInMemory" : 25000,
-      "maxNumSubTasks": 20,
-      "maxRetry": "1"
+      "type" : "hadoop",
+      "partitionsSpec" : {
+        "type" : "hashed",
+        "targetPartitionSize" : 5000000
+      },
+      "forceExtendableShardSpecs" : true,
+      "jobProperties" : {
+        "mapreduce.job.classloader" : true
+      }
     }
-  }
+  },
+  "hadoopDependencyCoordinates": ["org.apache.hadoop:hadoop-client:2.8.5"]
 }
 ```
 
